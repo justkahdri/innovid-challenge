@@ -1,0 +1,22 @@
+.window {
+  width: fit-content;
+  margin: auto;
+}
+
+.computer {
+  width: 250px;
+  margin: 10px;
+}
+
+.field {
+  width: 33%;
+
+  &--btn {
+    color: blue;
+    cursor: pointer;
+
+    &:hover {
+      color: rgb(29, 119, 255);
+    }
+  }
+}
