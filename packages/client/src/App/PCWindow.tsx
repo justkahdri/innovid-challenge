@@ -1,52 +1,31 @@
 import React, {FC, useState, useEffect, useRef} from "react";
 
+import getServerData from "../utils/getServerData";
 import turnedOn from "../assets/pc-on.gif";
 import turnedOff from "../assets/pc-off.png";
 
 import styles from "./PCWindow.module.scss";
 
-type ServerData = {
-  load: number;
-  id: number;
-};
-
-const getServerData = async (id: number) => {
-  const response = await fetch(`http://localhost:8000/status/${id}`, {
-    method: "GET",
-    headers: {
-      "Content-Type": "application/json",
-    },
-  });
-
-  if (response.status == 200) {
-    const parsedResponse: ServerData = await response.json();
-
-    return parsedResponse.load;
-  } else {
-    console.error(`Failed to fetch on Server #${id}: code ${response.status}`);
-  }
-};
-
-const PCWindow: FC = () => {
-  const [isOnline, setIsOnline] = useState(true);
+const PCWindow: FC<{serverId: number}> = ({serverId}) => {
+  const [isOnline, setIsOnline] = useState(false);
   const [load, setLoad] = useState<number>();
 
   const updater = useRef<number>();
 
   useEffect(() => {
     if (isOnline) {
-      getServerData(1).then((res) => setLoad(res));
+      getServerData(serverId).then((res) => setLoad(res));
     } else {
       clearInterval(updater.current);
     }
     const i = setInterval(() => {
       if (isOnline) {
-        getServerData(1).then((res) => setLoad(res));
+        getServerData(serverId).then((res) => setLoad(res));
       }
-    }, 1000);
+    }, 1500);
 
     updater.current = i;
-  }, [isOnline]);
+  }, [isOnline, serverId]);
 
   // Cleans interval on dismount
   useEffect(() => {
@@ -59,7 +38,7 @@ const PCWindow: FC = () => {
   return (
     <section className={`${styles.window} window`}>
       <div className="title-bar">
-        <div className="title-bar-text">Server #1</div>
+        <div className="title-bar-text">Server #{serverId}</div>
         <div className="title-bar-controls">
           <button aria-label="Minimize" />
           <button aria-label="Maximize" />

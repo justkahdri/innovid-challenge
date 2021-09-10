@@ -1,10 +1,12 @@
 .window {
-  width: fit-content;
-  margin: auto;
+  width: 40%;
+  min-width: fit-content;
+  margin: 1vw;
 }
 
 .computer {
-  width: 250px;
+  height: 25vh;
+  min-height: 200px;
   margin: 10px;
 }
 
