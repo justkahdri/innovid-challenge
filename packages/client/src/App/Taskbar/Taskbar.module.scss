@@ -1,0 +1,55 @@
+$icon-size: 22px;
+
+header.taskbar {
+  width: 100%;
+
+  nav.taskbar--content {
+    display: flex;
+    align-items: center;
+    margin: 0;
+  }
+
+  .taskbar--start {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 3px;
+    font-size: 1.4rem;
+    min-width: fit-content;
+    font-weight: bold;
+
+    &:not(:disabled):active {
+      padding: 3px;
+    }
+  }
+
+  .windows-logo {
+    object-fit: contain;
+    margin-right: 4px;
+    height: 2rem;
+  }
+
+  hr {
+    transform: rotate(90deg);
+    margin: 0;
+    width: 25px;
+    height: 4px;
+  }
+
+  .taskbar--icon {
+    height: $icon-size;
+    width: $icon-size;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    &:hover {
+      border: 0.5px dotted rgb(17, 17, 17);
+    }
+
+    img {
+      height: calc(#{$icon-size} - 2px);
+    }
+  }
+}

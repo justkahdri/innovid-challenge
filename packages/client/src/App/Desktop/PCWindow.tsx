@@ -1,8 +1,8 @@
 import React, {FC, useState, useEffect, useRef} from "react";
 
-import getServerData from "../utils/getServerData";
-import turnedOn from "../assets/pc-on.gif";
-import turnedOff from "../assets/pc-off.png";
+import getServerData from "../../utils/getServerData";
+import turnedOn from "../../assets/pc-on.gif";
+import turnedOff from "../../assets/pc-off.png";
 
 import styles from "./PCWindow.module.scss";
 
