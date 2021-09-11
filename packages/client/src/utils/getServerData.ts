@@ -17,6 +17,7 @@ const getServerData: getServerDataT = async (id) => {
 
     return parsedResponse.load;
   } else {
+    // TODO: handle error
     throw new Error(`Failed to fetch on Server #${id}: code ${response.status}`);
   }
 };

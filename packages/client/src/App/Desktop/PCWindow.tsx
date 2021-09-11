@@ -10,8 +10,18 @@ const PCWindow: FC<{serverId: number}> = ({serverId}) => {
   const [isOnline, setIsOnline] = useState(false);
   const [load, setLoad] = useState<number>();
 
+  const key = `server#${serverId}-status`;
   const updater = useRef<number>();
 
+  const toggleServerStatus = () => {
+    setIsOnline((isOnline) => {
+      window.localStorage.setItem(key, JSON.stringify(!isOnline));
+
+      return !isOnline;
+    });
+  };
+
+  // Fetching data on online change
   useEffect(() => {
     if (isOnline) {
       getServerData(serverId).then((res) => setLoad(res));
@@ -22,18 +32,26 @@ const PCWindow: FC<{serverId: number}> = ({serverId}) => {
       if (isOnline) {
         getServerData(serverId).then((res) => setLoad(res));
       }
-    }, 1500);
+    }, 5000);
 
     updater.current = i;
   }, [isOnline, serverId]);
 
-  // Cleans interval on dismount
+  // First data load and cleaning on dismount
   useEffect(() => {
+    // Loads server status from localStorage.
+    const saved_status = window.localStorage.getItem(key);
+
+    if (saved_status && JSON.parse(saved_status)) {
+      setIsOnline(true);
+    }
+
+    // Cleans interval on dismount
     return () => {
       setIsOnline(false);
       clearInterval(updater.current);
     };
-  }, []);
+  }, [key]);
 
   return (
     <section className={`${styles.window} window`}>
@@ -56,7 +74,7 @@ const PCWindow: FC<{serverId: number}> = ({serverId}) => {
         <p className={`${styles.field} status-bar-field`}>Satus: {isOnline ? "ON" : "OFF"}</p>
         <p
           className={`${styles.field} ${styles["field--btn"]} status-bar-field`}
-          onClick={() => setIsOnline((prev) => !prev)}
+          onClick={toggleServerStatus}
         >
           {isOnline ? "shut down" : "turn on"}
         </p>

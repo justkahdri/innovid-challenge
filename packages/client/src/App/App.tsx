@@ -5,18 +5,20 @@ import styles from "./App.module.scss";
 import Taskbar from "./Taskbar";
 
 const App: React.FC = () => {
+  const servers = Array(4)
+    .fill("")
+    .map((_, i) => ({name: `Server${i + 1}`, id: i + 1}));
   const toggleServers = () => {
-    alert("Toggle");
+    // TODO
+    console.log("Should run all servers...");
   };
 
   return (
     <div className={styles.container}>
       <main className={styles.desktop}>
-        {Array(4)
-          .fill("")
-          .map((_, i) => (
-            <PCWindow key={i + 1} serverId={i + 1} />
-          ))}
+        {servers.map(({id, name}) => (
+          <PCWindow key={name} serverId={id} />
+        ))}
       </main>
       <Taskbar handleStart={toggleServers} />
     </div>
