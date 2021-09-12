@@ -3,13 +3,19 @@ $icon-size: 22px;
 header.taskbar {
   width: 100%;
 
-  nav.taskbar--content {
+  nav.taskbar__content {
     display: flex;
-    align-items: center;
-    margin: 0;
+    justify-content: space-between;
+    margin: 2px 0;
+
+    > div {
+      display: flex;
+      align-items: center;
+      margin: 0;
+    }
   }
 
-  .taskbar--start {
+  .taskbar__start {
     display: flex;
     align-items: center;
     justify-content: center;
@@ -36,7 +42,7 @@ header.taskbar {
     height: 4px;
   }
 
-  .taskbar--icon {
+  .taskbar__icon {
     height: $icon-size;
     width: $icon-size;
     cursor: pointer;
@@ -48,8 +54,27 @@ header.taskbar {
       border: 0.5px dotted rgb(17, 17, 17);
     }
 
+    &:not(:last-of-type) {
+      margin-right: 8px;
+    }
+
     img {
       height: calc(#{$icon-size} - 2px);
+    }
+  }
+
+  .taskbar__info {
+    padding: 3px 6px;
+    display: flex;
+    align-items: center;
+    font-size: 1.4rem;
+
+    img {
+      height: calc(#{$icon-size} - 2px);
+      margin-right: 4px;
+      &:last-child {
+        margin-right: 14px;
+      }
     }
   }
 }
