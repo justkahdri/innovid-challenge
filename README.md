@@ -37,4 +37,4 @@ npm start
 ### Contacto
 - Twitch: JustKahdri
 - Discord: Kahdri#9419
-- Contacto: jrmontes@estudiantes.unsam.edu.ar
+- E-mail: jrmontes@estudiantes.unsam.edu.ar
